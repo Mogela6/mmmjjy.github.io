@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>海选 SPA｜元气girl菜单一览</title>
+<meta name="theme-color" content="#12051F" />
+<style>
+  :root{
+    /* 全息琉璃 - Holographic Glass */
+    /* 灵感：光盘反光、泡泡、极光 */
+    --bg0: #f0f4f8;
+    --bg1: #ffffff;
+    
+    --holo-pink: #ff9a9e;
+    --holo-blue: #a1c4fd;
+    --holo-purple: #c2e9fb;
+    
+    --text: #2d3436;
+    --sub: #636e72;
+    --muted: #b2bec3;
+    
+    --glass: rgba(255, 255, 255, 0.25);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --line: rgba(255, 255, 255, 0.4);
+    
+    --shadow: rgba(31, 38, 135, 0.07);
+
+    /* 版心宽度：适配手机长图（375pt=750px@2x） */
+    --poster-width: 100%;
+  }
+
+  *{box-sizing:border-box}
+  html,body{min-height:100%}
+  body{
+    margin:0;
+    color:var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f0f4f8;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-x: hidden;
+  }
+  
+  /* 沉浸式长图背景 */
+  .bg-layer {
+    position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    background: 
+      radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+      radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+      radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+    background: 
+      radial-gradient(circle at 10% 20%, rgba(255, 154, 158, 0.3) 0%, transparent 40%),
+      radial-gradient(circle at 90% 60%, rgba(161, 196, 253, 0.3) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(194, 233, 251, 0.3) 0%, transparent 60%),
+      linear-gradient(135deg, #fff5f7 0%, #f0f8ff 100%);
+  }
+
+  .wrap{
+    width: 100%;
+    max-width: 600px;
+    margin:0 auto;
+    padding: 0;
+  }
+
+  /* 
+   * 修复整页模式样式：
+   * 在大屏幕上，让 .poster 保持长图的限制宽度，
+   * 避免因为宽度撑满屏幕而导致布局和背景拉伸变形。
+   */
+  @media (min-width: 600px) {
+    body {
+      display: flex;
+      justify-content: center;
+      background: #e0e5ec; /* 电脑端背景色稍暗，突出长图 */
+    }
+    .bg-layer {
+      /* 电脑端背景只在长图区域内显示，或者全屏显示看设计需求，这里保持全屏 */
+    }
+    .poster {
+      box-shadow: 0 0 50px rgba(0,0,0,0.1); /* 给长图加个阴影 */
+      min-height: 100vh;
+      background: #f0f4f8; /* 确保长图有背景色 */
+    }
+  }
+
+  .poster{
+    position:relative;
+    overflow:hidden;
+    background: transparent;
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* 背景暧昧光晕 */
+  .glow{ display: block; }
+  .glow::before, .glow::after { filter: blur(80px); opacity: 0.6; mix-blend-mode: multiply; }
+  .glow::before { background: radial-gradient(circle, var(--holo-pink), transparent 70%); width: 80%; height: 600px; left: -20%; top: -100px; }
+  .glow::after { background: radial-gradient(circle, var(--holo-blue), transparent 70%); width: 80%; height: 500px; right: -20%; top: 100px; }
+
+  header.hero{
+    position:relative; z-index:1;
+    padding:60px 24px 30px;
+    display:flex; flex-direction: column; align-items:center; text-align: center;
+    gap:16px;
+    background: transparent;
+    border-bottom: none;
+  }
+  header.hero::after {
+    content: ""; display: block; width: 40px; height: 4px; 
+    background: linear-gradient(90deg, var(--holo-pink), var(--holo-blue));
+    border-radius: 10px;
+    margin-top: 10px;
+  }
+  .brand{
+    letter-spacing:4px; color:var(--sub); font-size:12px; opacity: 1; 
+    font-weight: 700; text-transform: uppercase;
+    text-shadow: none;
+  }
+  h1{
+    margin:0; font-size:36px; letter-spacing:2px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: none;
+    font-weight: 800;
+  }
+  .slogan{
+    margin:0; color:var(--sub); font-size:14px; opacity: 0.8; letter-spacing: 1px;
+    font-family: inherit;
+    border-top: none; padding-top: 0;
+    font-style: normal;
+  }
+  .meta{
+    color:var(--sub); font-size:12px; margin-top: 10px;
+    padding: 6px 16px; border: 1px solid #fff; border-radius: 20px;
+    background: rgba(255,255,255,0.4);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); font-family: inherit;
+    backdrop-filter: blur(4px);
+  }
+
+  .section{
+    position:relative; z-index:1;
+    padding:10px 20px;
+  }
+  .cap{
+    display:flex; flex-direction: row; align-items:center; justify-content: flex-start; 
+    gap:10px; margin:20px 4px 16px;
+    position: relative;
+    border-left: none; padding-left: 0;
+  }
+  
+  .cap h2{
+    margin:0; font-size:20px; letter-spacing:1px; color:var(--text);
+    text-shadow: none;
+    font-family: inherit; font-weight: 700;
+    background: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  /* 装饰点 */
+  .cap::before {
+    content: ""; display: block; width: 10px; height: 10px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--holo-pink), var(--holo-blue));
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  .cap .hint{
+    display: block; width: auto; margin-left: auto;
+    position: static;
+    color:var(--muted); font-size:12px; letter-spacing: 0; opacity: 1;
+    font-family: inherit; font-style: normal;
+  }
+  .cap .dot { display: none; }
+
+  .card{
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 0;
+    box-shadow: 0 8px 32px 0 var(--shadow);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    outline: none;
+    overflow: hidden;
+  }
+
+  /* 服务列表 */
+  .svc-list{ display:grid; gap:0px; background: transparent; }
+  .svc{
+    display:grid; grid-template-columns:1fr auto; gap:8px 16px; align-items:center;
+    padding:20px; 
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    position: relative;
+    transition: all 0.2s;
+  }
+  .svc:last-child { border-bottom: none; }
+  .svc:active { background: rgba(255,255,255,0.4); transform: scale(0.98); }
+
+  .title{
+    font-size:17px; font-weight:600; letter-spacing:0.5px; color: var(--text);
+    text-shadow: none;
+    font-family: inherit;
+  }
+  .badge{
+    display:inline-block; padding:3px 8px; border-radius:10px; font-size:10px; 
+    color:#fff; background: linear-gradient(90deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+    box-shadow: 0 2px 5px rgba(255, 154, 158, 0.4); margin-left:6px; vertical-align: middle; 
+    font-family: sans-serif; font-weight: bold;
+  }
+  .desc{
+    grid-column:1 / -1; margin:6px 0 0; color:var(--sub); font-size:13px; line-height:1.6; opacity: 1;
+    font-family: inherit; text-align: left;
+  }
+  .right{
+    text-align:right; min-width:80px; display: flex; flex-direction: column; align-items: flex-end;
+  }
+  .dur{ color:var(--muted); font-size:12px; font-family: inherit;}
+  .price{ margin-top:4px; font-weight:700; font-size:18px; color:#6c5ce7; text-shadow: none; font-family: inherit; }
+
+  /* 预约区 */
+  .cta{
+    margin:20px 16px;
+    padding:30px 20px;
+    border-radius:24px; border:1px solid var(--glass-border);
+    background: rgba(255,255,255,0.5);
+    box-shadow: 0 10px 40px rgba(161, 196, 253, 0.2);
+    text-align: center;
+    backdrop-filter: blur(16px);
+  }
+  .cta .row{ flex-direction: column; gap: 24px; }
+  .qr{
+    width:120px; height:120px; border-radius:20px; margin: 0 auto;
+    border:1px solid #fff;
+    background: #fff;
+    color: #000;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    padding: 6px;
+  }
+  .cta .txt{ color:var(--text); font-size:14px; line-height:1.8; text-shadow: none; font-family: inherit;}
+  .cta .txt small{ color:var(--muted); display: block; margin-top: 12px; font-style: normal; letter-spacing: 0;}
+
+  footer.note{
+    color:var(--muted);
+    padding:40px 20px 60px;
+    font-size:12px; text-align:center; opacity: 0.8;
+    text-shadow: none; font-family: inherit; letter-spacing: 0;
+  }
+
+  .divider{
+    height:1px; margin:40px 0;
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent);
+    box-shadow: none;
+    border-top: none;
+  }
+
+  /* 保存按钮 */
+  .save-btn {
+    position: fixed; bottom: 30px; right: 20px; z-index: 999;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--holo-pink), var(--holo-blue));
+    color: #fff; border: none;
+    box-shadow: 0 8px 20px rgba(161, 196, 253, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 20px;
+    backdrop-filter: blur(4px);
+    transition: transform 0.2s;
+  }
+  .save-btn:active { transform: scale(0.9); }
+  .save-btn svg { width: 24px; height: 24px; fill: currentColor; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div class="bg-layer"></div>
+  <div class="wrap">
+    <article class="poster">
+      <div class="glow"></div>
+
+      <header class="hero">
+        <div>
+          <div class="brand">CINEMA · NIGHT SPA</div>
+          <h1>重庆元气GIRL菜单</h1>
+          <p class="slogan">雾灯微醺 · 香气里藏着心事</p>
+        </div>
+        <div class="meta">
+          价格单位：RMB（¥） · 预约制 · 支持私享定制
+        </div>
+      </header>
+
+      <section class="section">
+        <div class="cap">
+          <span class="dot"></span><h2>私影体验馆</h2>
+          <span class="hint">温柔与光泽都不着痕迹</span>
+        </div>
+        <div class="card">
+          <div class="svc-list">
+            <div class="svc">
+              <div class="title">A【初恋悸动·甜蜜时光】</div>
+              <div class="right"><div class="dur">60 分钟</div><div class="price">¥599</div></div>
+              <p class="desc">
+                <strong>💞 心动互动：</strong>牵手、拥抱、摸腿、无障碍摸胸、亲吻<br>
+                <strong>🌟 体验特色：</strong>宛如热恋小情侣般的亲昵，在这专属空间里，她只属于你，倾听心声，给予最温柔的陪伴。
+              </p>
+            </div>
+
+            <div class="svc">
+              <div class="title">B【温玉留怀·柔式解压】 <span class="badge">HOT</span></div>
+              <div class="right"><div class="dur">60 分钟</div><div class="price">¥799</div></div>
+              <p class="desc">
+                <strong>💋 深度亲密：</strong>无上衣障碍，可以亲👄，可以伸进去摸🐻，可以 😚'珠峰'，可亲🐻，妹妹会更加热情主动❤️‍🔥<br>
+                <strong>🔥 极致呵护：</strong>涵盖耳畔轻语、颈部舒缓、全身心放松。不仅仅是身体的触碰，更是灵魂的交融，从耳垂到指尖，每一寸肌肤都能感受到被呵护的电流感。
+              </p>
+            </div>
+            
+            <div class="svc">
+              <div class="title">C【同居女友·帝王尊享】<span class="badge">HOT</span></div>
+              <div class="right"><div class="dur">60 分钟</div><div class="price">¥998</div></div>
+              <p class="desc">
+                <strong>� 爆款推荐：全方位极致宠爱，打造“同居”即视感</strong><br>
+                <strong>💓 独家玩法：</strong>🐍吻亲🐻满足您对亲密关系的全部渴望。包含贴身热舞、情景互动，彻底释放压力。<br>
+                <strong>💃 沉浸体验：</strong>妹妹化身完美女友，体验从视觉到触觉的极致盛宴。
+              </p>
+            </div>
+            
+            <div class="svc">
+              <div class="title">D【明星助教·奢华版】</div>
+              <div class="right"><div class="dur">60 分钟</div><div class="price">¥1314</div></div>
+              <p class="desc">
+                <strong>💎 奢华定制：</strong>尺度拉满，包含以上所有服务，妹妹全裸只剩内裤，可以感受小森林的温存<br>
+                <strong>🎭 专属特权：</strong>定制轻中度调教，换装体验，全果服务，享受极致的女友感与征服感。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <div class="divider"></div>
+      
+      <section class="section">
+        <div class="cap">
+          <span class="dot"></span><h2>丝足SPA诱惑馆</h2>
+          <span class="hint">不动声色地用丝袜把压力榨出来</span>
+        </div>
+        <div class="card">
+          <div class="svc-list">
+            <div class="svc">
+              <div class="title">水疗SPA</div>
+              <div class="right"><div class="dur">60 分钟</div><div class="price">¥399</div></div>
+              <p class="desc">
+                <strong>1⃣️ 舒爽洗浴 🛁</strong><br>
+                小姐姐助浴，温热水流冲刷，全身放松，皮肤微微发热，为后续调情打开感官<br><br>
+                <strong>2⃣️ 按摩调情 👐</strong><br>
+                轻柔到位的指尖滑动，背部指划👉、冰火两重天❄️🔥交替推进，逐渐唤醒敏感带。<br><br>
+                <strong>3⃣️ 胸推舌舔 🐻👅</strong><br>
+                真空胸推贴身碾压，搭配舌尖灵活游动，耳边呢喃+哈气呻吟💨，让人心跳加速。<br><br>
+                <strong>4⃣️ 全身游动 🌀</strong><br>
+                蛇皮走位，舌尖/胸/臀交替游走，敏感点逐一击破，仿佛电流般传遍全身。<br><br>
+                <strong>5⃣️ 深度挑逗 💋</strong><br>
+                手打出水，鼻尖过蛋🥚、前列腺保健+特定动作（站/跪/趴），多姿势互动，感官爆炸。
+              </p>
+            </div>
+            <div class="svc">
+              <div class="title">丝足SPA <span class="badge">HOT</span></div>
+              <div class="right"><div class="dur">60 分钟</div><div class="price">¥499</div></div>
+              <p class="desc">
+                <strong>1⃣️ 舒爽洗浴 🛁</strong><br>
+                小姐姐助浴，温热水流冲刷，全身放松，皮肤微微发热，为后续调情打开感官<br><br>
+                <strong>2⃣️ 按摩调情 👐</strong><br>
+                轻柔到位的指尖滑动，背部指划👉、冰火两重天❄️🔥交替推进，逐渐唤醒敏感带。<br><br>
+                <strong>3⃣️ 胸推舌舔 🐻👅</strong><br>
+                真空胸推贴身碾压，搭配舌尖灵活游动，耳边呢喃+哈气呻吟💨，让人心跳加速。<br><br>
+                <strong>4⃣️ 全身游动 🌀</strong><br>
+                蛇皮走位，舌尖/胸/臀交替游走，敏感点逐一击破，仿佛电流般传遍全身。<br><br>
+                <strong>5⃣️ 深度挑逗 💋</strong><br>
+                丝袜足交🦶、鼻尖过蛋🥚、前列腺保健+特定动作（站/跪/趴），多姿势互动，感官爆炸。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <section class="section">
+        <div class="cap">
+          <span class="dot"></span><h2>情趣剧本杀</h2>
+          <span class="hint">重庆独家高颜值情趣剧本体验</span>
+        </div>
+        <div class="card">
+          <div class="svc-list">
+            <div class="svc">
+              <div class="title">婚房剧本 <span class="badge">人气</span></div>
+              <div class="right"><div class="dur">沉浸体验</div><div class="price">¥799</div></div>
+              <p class="desc">
+                <strong>💍 剧本设定：</strong>扮演新婚当天的新郎，和朝思暮想的新娘👰在洞房花烛夜发生了一些有趣的事情...<br>
+                <strong>🎲 玩法包含：</strong>情趣游戏 🎮 + 自选制服 👗 + 剧情服务 🎬<br>
+                <strong>💦 服务细节：</strong>鸳鸯共浴、柔情按摩、纤纤玉指、心心相印、胸漫、唇漫、手打释放
+              </p>
+            </div>
+            <div class="svc">
+              <div class="title">教室剧本 <span class="badge">推荐</span></div>
+              <div class="right"><div class="dur">沉浸体验</div><div class="price">¥799</div></div>
+              <p class="desc">
+                <strong>🏫 剧本设定：</strong>扮演补习课的学生，和穿着包臀裙黑丝的老师👩‍🏫在一起，学习新知识，分享经验...<br>
+                <strong>🎲 玩法包含：</strong>情趣游戏 🎮 + 自选制服 👗 + 剧情服务 🎬<br>
+                <strong>💦 服务细节：</strong>鸳鸯共浴、柔情按摩、纤纤玉指、心心相印、胸漫、唇漫、手打释放
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="cap">
+          <span class="dot"></span><h2>预约 & 联系</h2>
+          <span class="hint">轻声告诉我们你的偏好</span>
+        </div>
+        <div class="cta">
+          <div class="row">
+            <div class="txt">
+              所有项目需提前预约TG客服: <a href="https://t.me/yqgirl02bot" target="_blank" style="color: var(--holo-blue); text-decoration: underline;">@yqgirl02bot</a><br>
+              <br>
+              <small>营业时间 14:00–03:00 ｜ </small>
+            </div>
+          
+          </div>
+          <div class="row">
+            <div class="txt">
+              
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="note">
+        Copyright © 元气GIRL｜当夜色变得温柔，愿你也一样。
+      </footer>
+      <div class="spacer"></div>
+    </article>
+  </div>
+  <button class="save-btn" onclick="saveAsImage()" title="保存为长图">
+    <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+  </button>
+  <script>
+    function saveAsImage() {
+      const btn = document.querySelector('.save-btn');
+      btn.style.display = 'none'; // 截图时隐藏按钮
+      
+      // 设定截图宽度为手机宽度，确保生成手机风格的长图
+      const targetWidth = 480; 
+
+      html2canvas(document.body, {
+        useCORS: true,
+        scale: 2, // 2倍清晰度
+        backgroundColor: null, // 保持透明以便背景层显示
+        logging: false,
+        
+        // 关键配置：模拟手机屏幕宽度，避开电脑端的响应式样式
+        windowWidth: targetWidth,
+        width: targetWidth,
+        
+        // 确保截取完整高度
+        height: document.body.scrollHeight,
+        windowHeight: document.body.scrollHeight,
+        
+        // 关键：强制从顶部开始截取，防止滚动导致的顶部空白
+        scrollY: 0, 
+        scrollX: 0,
+        
+        ignoreElements: (element) => element.classList.contains('save-btn'),
+        
+        onclone: (clonedDoc) => {
+          // 1. 强制修正背景层
+          const bgLayer = clonedDoc.querySelector('.bg-layer');
+          if (bgLayer) {
+            bgLayer.style.position = 'absolute';
+            bgLayer.style.height = '100%';
+            bgLayer.style.width = '100%';
+          }
+          
+          // 2. 强制修正 body 样式
+          const body = clonedDoc.body;
+          body.style.display = 'block'; 
+          body.style.background = 'transparent';
+          body.style.overflow = 'visible';
+          
+          // 3. 修正海报容器
+          const poster = clonedDoc.querySelector('.poster');
+          if (poster) {
+            poster.style.boxShadow = 'none';
+            poster.style.minHeight = 'auto';
+            poster.style.background = 'transparent';
+          }
+
+          // 4. 关键修复：html2canvas 不支持 background-clip: text，会导致标题变成色块或透明
+          // 我们需要把这些标题改成普通纯色文字
+          const textClips = clonedDoc.querySelectorAll('h1, .cap h2');
+          textClips.forEach(el => {
+            el.style.background = 'none'; // 去掉渐变背景
+            el.style.webkitBackgroundClip = 'border-box'; // 重置裁剪
+            el.style.color = '#764ba2'; // 给一个深紫色兜底，或者用 var(--text)
+            if (el.tagName === 'H2') el.style.color = '#66a6ff'; // 二级标题用蓝色
+          });
+        }
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = '元气girl菜单.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        
+        btn.style.display = 'flex'; // 恢复按钮
+      }).catch(err => {
+        console.error(err);
+        alert('保存失败，请尝试使用浏览器截图功能');
+        btn.style.display = 'flex';
+      });
+    }
+  </script>
+</body>
+</html>
